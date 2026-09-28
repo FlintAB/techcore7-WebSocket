@@ -1,5 +1,5 @@
+import { LoginForm } from "../../modules/auth/components/LoginForm/LoginForm";
+
 export const LoginPage = () => (
-   <div>
-      Hello Login
-   </div>
+   <LoginForm />
 )

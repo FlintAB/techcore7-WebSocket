@@ -1,7 +1,9 @@
-import { createRootRoute, createRouter, createRoute, redirect } from "@tanstack/react-router";
+import { createRootRoute, createRouter, createRoute, redirect, Outlet } from "@tanstack/react-router";
 import { LoginPage } from "../../pages/LoginPage/LoginPage";
 import { ProductsPage } from "../../pages/ProductsPage/ProductsPage";
 import { RootLayout } from "./RootLayout";
+import { useAuthStore } from "../../modules/auth/store/authStore";
+import { CartPage } from "../../pages/CartPage/CartPage";
 
 const rootRoute = createRootRoute({
    component: () => <RootLayout />
@@ -11,10 +13,27 @@ const indexedRoute = createRoute({
    getParentRoute: () => rootRoute,
    path: '/',
    beforeLoad: () => {
-      throw redirect(({
+      throw redirect({
          to: '/products'
-      }))
+      })
    }
+})
+
+const protectedRoute = createRoute({
+   getParentRoute: () => rootRoute,
+   component: () => <Outlet />,
+   id: '_protected',
+
+   beforeLoad: () => {
+      const accessToken = useAuthStore.getState().accessToken
+
+      if(!accessToken) {
+         throw redirect({
+            to: '/login'
+         })
+      }
+   },
+
 })
 
 const loginRoute = createRoute({
@@ -29,10 +48,20 @@ const productsRoute = createRoute({
    component: () => <ProductsPage />,
 })
 
+const cartRoute = createRoute({
+   getParentRoute: () => protectedRoute,
+   path: '/cart',
+   component: () => <CartPage />,
+})
+
 const routeTree = rootRoute.addChildren([
    indexedRoute,
    loginRoute,
    productsRoute,
+
+   protectedRoute.addChildren([
+      cartRoute,
+   ]),
 ])
 
 export const router = createRouter({ routeTree })
