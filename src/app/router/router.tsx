@@ -4,6 +4,7 @@ import { ProductsPage } from "../../pages/ProductsPage/ProductsPage";
 import { RootLayout } from "./RootLayout";
 import { useAuthStore } from "../../modules/auth/store/authStore";
 import { CartPage } from "../../pages/CartPage/CartPage";
+import { ProductDetailsPage } from "../../pages/ProductDetailsPage/ProductDetailsPage";
 
 const rootRoute = createRootRoute({
    component: () => <RootLayout />
@@ -48,6 +49,12 @@ const productsRoute = createRoute({
    component: () => <ProductsPage />,
 })
 
+const productDetailsRoute = createRoute({
+   getParentRoute: () => rootRoute,
+   path: '/products/$productId',
+   component: () => <ProductDetailsPage />,
+})
+
 const cartRoute = createRoute({
    getParentRoute: () => protectedRoute,
    path: '/cart',
@@ -58,6 +65,7 @@ const routeTree = rootRoute.addChildren([
    indexedRoute,
    loginRoute,
    productsRoute,
+   productDetailsRoute,
 
    protectedRoute.addChildren([
       cartRoute,
