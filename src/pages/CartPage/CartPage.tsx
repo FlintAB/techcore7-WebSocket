@@ -1,5 +1,8 @@
+import { CartList } from "../../modules/cart/components/CartList/CartList";
+
 export const CartPage = () => (
-   <div>
-      Cart Page
-   </div>
+   <>
+      <h2>Корзина</h2>
+      <CartList />
+   </>
 )

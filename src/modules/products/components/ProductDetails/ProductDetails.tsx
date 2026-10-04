@@ -1,5 +1,6 @@
 import {
    Box,
+   Button,
    Card,
    CardContent,
    CardMedia,
@@ -10,6 +11,7 @@ import {
 } from "@mui/material";
 
 import type { Product } from "../../types/products.types";
+import { useCartStore } from "../../../cart/store/cartStore";
 
 type ProductDetailsProps = {
    product: Product;
@@ -17,6 +19,7 @@ type ProductDetailsProps = {
 
 export const ProductDetails = ({ product }: ProductDetailsProps) => {
    const {
+      id,
       title,
       description,
       category,
@@ -27,6 +30,18 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
       brand,
       thumbnail,
    } = product;
+
+   const addItem = useCartStore((state) => state.addItem)
+
+   const handleAddToCart = () => {
+      addItem({
+         id,
+         title,
+         thumbnail,
+         price,
+         quantity: 1,
+      });
+   };
 
    return (
       <Card>
@@ -132,6 +147,12 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                   ))}
                </Stack>
             </Box>
+            <Button
+               variant="contained"
+               onClick={handleAddToCart}
+            >
+               Добавить в корзину
+            </Button>
             </Stack>
          </CardContent>
          </Box>
