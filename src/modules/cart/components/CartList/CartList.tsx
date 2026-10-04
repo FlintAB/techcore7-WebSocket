@@ -1,3 +1,4 @@
+import { Stack, Typography } from "@mui/material";
 import { useCartStore } from "../../store/cartStore";
 import { CartItem } from "../CartItem/CartItem";
 
@@ -6,10 +7,13 @@ export const CartList = () => {
 
    return (
       items.length === 0 
-         ? <p>Корзина пуста</p>  
-         : items.map((item) => (
-               <CartItem key={item.id} product={item}/>
-            ))
-      
+         ? <Typography variant="body1">Корзина пуста</Typography>
+         : (
+            <Stack spacing={2}>
+               {items.map((item) => (
+                  <CartItem key={item.id} product={item}/>
+               ))}
+            </Stack>
+         )
    )
 }
