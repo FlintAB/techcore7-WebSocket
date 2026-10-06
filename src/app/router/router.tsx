@@ -6,6 +6,7 @@ import { useAuthStore } from "../../modules/auth/store/authStore";
 import { CartPage } from "../../pages/CartPage/CartPage";
 import { ProductDetailsPage } from "../../pages/ProductDetailsPage/ProductDetailsPage";
 import { ProfilePage } from "../../pages/ProfilePage/ProfilePage";
+import { FavoritesPage } from "../../pages/FavoritesPage/FavoritesPage";
 
 const rootRoute = createRootRoute({
    component: () => <RootLayout />
@@ -68,6 +69,12 @@ const profileRoute = createRoute({
    component: () => <ProfilePage />,
 })
 
+const favoritesRoute = createRoute({
+   getParentRoute: () => protectedRoute,
+   path: "/favorites",
+   component: () => <FavoritesPage />,
+})
+
 const routeTree = rootRoute.addChildren([
    indexedRoute,
    loginRoute,
@@ -77,6 +84,7 @@ const routeTree = rootRoute.addChildren([
    protectedRoute.addChildren([
       cartRoute,
       profileRoute,
+      favoritesRoute,
    ]),
 ])
 
