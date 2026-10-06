@@ -1,6 +1,8 @@
 import { useParams } from "@tanstack/react-router";
 import { useProduct } from "../../modules/products/hooks/useProduct";
 import { ProductDetails } from "../../modules/products/components/ProductDetails/ProductDetails";
+import Alert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const ProductDetailsPage = () => {
    const productId = useParams({
@@ -11,11 +13,11 @@ export const ProductDetailsPage = () => {
    const { data, isPending, error } = useProduct(productId)
 
    if (isPending) {
-      return <div>Загрузка...</div>
+      return <CircularProgress />
    }
 
    if (error) {
-      return <div>{error.message} | {error.name}</div>
+      return <Alert severity="error">{error.message}</Alert>
    }
 
    return <ProductDetails product={data} />
