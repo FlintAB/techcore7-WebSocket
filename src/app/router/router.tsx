@@ -7,6 +7,7 @@ import { CartPage } from "../../pages/CartPage/CartPage";
 import { ProductDetailsPage } from "../../pages/ProductDetailsPage/ProductDetailsPage";
 import { ProfilePage } from "../../pages/ProfilePage/ProfilePage";
 import { FavoritesPage } from "../../pages/FavoritesPage/FavoritesPage";
+import { MessagesPage } from "../../pages/MessagesPage/MessagesPage";
 
 const rootRoute = createRootRoute({
    component: () => <RootLayout />
@@ -75,6 +76,12 @@ const favoritesRoute = createRoute({
    component: () => <FavoritesPage />,
 })
 
+const messagesRoute = createRoute({
+   getParentRoute: () => protectedRoute,
+   path: "/messages",
+   component: () => <MessagesPage />,
+})
+
 const routeTree = rootRoute.addChildren([
    indexedRoute,
    loginRoute,
@@ -85,6 +92,7 @@ const routeTree = rootRoute.addChildren([
       cartRoute,
       profileRoute,
       favoritesRoute,
+      messagesRoute,
    ]),
 ])
 
