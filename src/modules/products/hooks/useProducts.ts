@@ -1,9 +1,24 @@
-import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "../api/productsApi";
+import { useInfiniteQuery } from "@tanstack/react-query"
+import { getProducts } from "../api/productsApi"
+
+const PRODUCTS_LIMIT = 20
 
 export const useProducts = () => {
-   return useQuery({
-      queryKey: ['products'],
-      queryFn: getProducts
+   return useInfiniteQuery({
+      queryKey: ["products"],
+      queryFn: ({ pageParam }) =>
+         getProducts(PRODUCTS_LIMIT, pageParam),
+
+      initialPageParam: 0,
+
+      getNextPageParam: (lastPage) => {
+         const nextSkip = lastPage.skip + lastPage.limit
+
+         if (nextSkip >= lastPage.total) {
+         return undefined
+         }
+
+         return nextSkip
+      },
    })
 }

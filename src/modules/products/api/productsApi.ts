@@ -1,9 +1,13 @@
 import type { Product, ProductsResponse } from "../types/products.types";
 
-export async function getProducts(): Promise<ProductsResponse> {
-   const response = await fetch('https://dummyjson.com/products')
+export async function getProducts(limit: number, skip: number): Promise<ProductsResponse> {
+   const response = await fetch(
+      `https://dummyjson.com/products?limit=${limit}&skip=${skip}`,
+   )
 
-   if(!response.ok) throw new Error('Failed while get products')
+   if (!response.ok) {
+      throw new Error("Failed while get products")
+   }
 
    return await response.json()
 }
