@@ -1,5 +1,7 @@
 # Marketplace SPA
 
+-[Деплой проекта](https://techcore7-web-socket.vercel.app/)
+
 Может потребоваться VPN, для отправки запросов на DummyJSON
 
 SPA интернет-магазина, разработанное на React + TypeScript. 
