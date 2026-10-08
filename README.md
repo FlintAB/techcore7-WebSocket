@@ -1,75 +1,58 @@
-# React + TypeScript + Vite
+# Marketplace SPA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Может потребоваться VPN, для отправки запросов на DummyJSON
 
-Currently, two official plugins are available:
+SPA интернет-магазина, разработанное на React + TypeScript. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Проект реализует каталог товаров, просмотр детальной информации, корзину,
+избранное, авторизацию, профиль пользователя и чат на WebSocket.
 
-## React Compiler
+## Функциональность
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Авторизация через DummyJSON API
+- Защищённые маршруты
+- Каталог товаров
+- Бесконечная прокрутка каталога (Infinite Scroll)
+- Детальная страница товара
+- Добавление товаров в корзину
+- Изменение количества товаров в корзине
+- Удаление товаров из корзины
+- Избранные товары
+- Профиль авторизованного пользователя
+- WebSocket-чат
+- Сохранение авторизации, корзины и избранного в `localStorage`
+- Адаптивный интерфейс для desktop и mobile
+- Навигация между страницами без полной перезагрузки
 
-## Expanding the ESLint configuration
+## Стек
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React
+- TypeScript
+- Vite
+- TanStack Router
+- TanStack Query
+- Zustand
+- Material UI
+- Native Fetch API
+- WebSocket API
+- CSS Modules
+- pnpm
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## API
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Для получения данных используется публичный API:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- [DummyJSON](https://dummyjson.com/)
+- WebSocket: `wss://ws.ifelse.io/`
 
-```
+## Установка
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+### Требования
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Node.js
+- pnpm
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Установка зависимостей
 
-```
+```bash
+pnpm install
