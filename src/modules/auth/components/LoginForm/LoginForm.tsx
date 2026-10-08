@@ -16,8 +16,8 @@ export const LoginForm = () => {
       e.preventDefault()
          mutate(
             {
-               username: userName,
-               password,
+               username: userName.trim(),
+               password: password.trim(),
             },
             {
                onSuccess: () => {
@@ -27,39 +27,90 @@ export const LoginForm = () => {
          )
    } 
 
-   return (
+return (
+   <Box
+      sx={{
+         minHeight: "calc(100vh - 64px)",
+         display: "flex",
+         justifyContent: "center",
+         alignItems: "center",
+         px: 2,
+      }}
+   >
       <Box
-         component='form'
+         component="form"
          onSubmit={handleSubmit}
+         sx={{
+            width: "100%",
+            maxWidth: 420,
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            p: 4,
+            borderRadius: 3,
+            boxShadow: 3,
+            backgroundColor: "background.paper",
+         }}
       >
-         <TextField 
-            label="UserName"
-            name="userName"
+         <Box
+            sx={{
+               fontSize: "1.75rem",
+               fontWeight: 600,
+               textAlign: "center",
+               mb: 1,
+            }}
+         >
+            Вход
+         </Box>
+
+         <TextField
+            label="Username"
+            name="username"
             value={userName}
-            onChange={(e) => setUserName(e.target.value.trim())}
+            onChange={(e) => setUserName(e.target.value)}
             fullWidth
+            required
          />
-         <TextField 
+
+         <TextField
             label="Password"
             name="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value.trim())}
+            onChange={(e) => setPassword(e.target.value)}
             fullWidth
             type="password"
+            required
          />
 
-         <Button 
-            type="submit" 
-            variant='contained' 
+         <Button
+            type="submit"
+            variant="contained"
+            size="large"
             disabled={isPending}
-            >
-               {isPending ? "Вход..." : "Войти"}
+            fullWidth
+         >
+            {isPending ? "Вход..." : "Войти"}
          </Button>
-         <div>
-            emilys
-               |
-            emilyspass
-         </div>
+
+         <Box
+            sx={{
+               mt: 1,
+               p: 2,
+               borderRadius: 2,
+               backgroundColor: "action.hover",
+               textAlign: "center",
+               fontSize: "0.875rem",
+            }}
+         >
+            <Box sx={{ mb: 0.5, color: "text.secondary" }}>
+               Тестовый аккаунт
+            </Box>
+
+            <Box>
+               <strong>emilys</strong> / <strong>emilyspass</strong>
+            </Box>
+         </Box>
       </Box>
-   )
+   </Box>
+)
 }
