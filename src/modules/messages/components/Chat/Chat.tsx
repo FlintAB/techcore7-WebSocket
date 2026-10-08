@@ -33,7 +33,22 @@ export const Chat = () => {
             </Alert>
          )}
 
-         <MessageList messages={messages} />
+         <Stack
+            sx={{
+               height: {
+                  xs: 400,
+                  sm: 500,
+                  md: 600,
+               },
+               border: 1,
+               borderColor: "divider",
+               borderRadius: 2,
+               p: 2,
+               overflowY: "auto",
+            }}
+         >
+            <MessageList messages={messages} />
+         </Stack>
 
          <MessageInput
             onSend={sendMessage}
