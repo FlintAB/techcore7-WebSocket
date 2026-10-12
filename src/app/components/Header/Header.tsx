@@ -49,24 +49,24 @@ export const Header = () => {
                   Каталог
                </Button>
 
+               <Button
+                  component={Link}
+                     to="/cart"
+                     sx={{ color: "inherit" }}
+               >
+                  Корзина
+               </Button>
+
+               <Button
+                  component={Link}
+                  to="/favorites"
+                  sx={{ color: "inherit" }}
+               >
+                  Избранное
+               </Button>
+
                {accessToken && (
                   <>
-                     <Button
-                        component={Link}
-                        to="/cart"
-                        sx={{ color: "inherit" }}
-                     >
-                        Корзина
-                     </Button>
-
-                     <Button
-                        component={Link}
-                        to="/favorites"
-                        sx={{ color: "inherit" }}
-                     >
-                        Избранное
-                     </Button>
-
                      <Button
                         component={Link}
                         to="/messages"

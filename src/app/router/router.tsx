@@ -59,7 +59,7 @@ const productDetailsRoute = createRoute({
 })
 
 const cartRoute = createRoute({
-   getParentRoute: () => protectedRoute,
+   getParentRoute: () => rootRoute,
    path: '/cart',
    component: () => <CartPage />,
 })
@@ -71,8 +71,8 @@ const profileRoute = createRoute({
 })
 
 const favoritesRoute = createRoute({
-   getParentRoute: () => protectedRoute,
-   path: "/favorites",
+   getParentRoute: () => rootRoute,
+   path: '/favorites',
    component: () => <FavoritesPage />,
 })
 
@@ -87,11 +87,11 @@ const routeTree = rootRoute.addChildren([
    loginRoute,
    productsRoute,
    productDetailsRoute,
+   cartRoute,
+   favoritesRoute,
 
    protectedRoute.addChildren([
-      cartRoute,
       profileRoute,
-      favoritesRoute,
       messagesRoute,
    ]),
 ])
