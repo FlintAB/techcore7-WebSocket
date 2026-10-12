@@ -1,0 +1,8 @@
+.counter {
+   margin-right: 10px;
+}
+
+.counter :global(.MuiBadge-badge) {
+   right: -10px;
+   top: 2px;
+}
