@@ -8,9 +8,11 @@ import { ProductDetailsPage } from "../../pages/ProductDetailsPage/ProductDetail
 import { ProfilePage } from "../../pages/ProfilePage/ProfilePage";
 import { FavoritesPage } from "../../pages/FavoritesPage/FavoritesPage";
 import { MessagesPage } from "../../pages/MessagesPage/MessagesPage";
+import { NotFoundPage } from "../../pages/NotFoundPage/NotFoundPage";
 
 const rootRoute = createRootRoute({
-   component: () => <RootLayout />
+   component: () => <RootLayout />,
+   notFoundComponent: () => <NotFoundPage />,
 })
 
 const indexedRoute = createRoute({
