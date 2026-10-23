@@ -13,3 +13,12 @@ export async function getProfile(accessToken: string): Promise<LoginResponse> {
 
    return await response.json()
 }
+
+const DELETE_PROFILE_DELAY_MS = 700
+
+export async function deleteProfile(): Promise<void> {
+   // DummyJSON doesn't expose an account deletion endpoint, so emulate it.
+   await new Promise<void>((resolve) => {
+      setTimeout(resolve, DELETE_PROFILE_DELAY_MS)
+   })
+}
