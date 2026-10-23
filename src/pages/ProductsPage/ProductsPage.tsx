@@ -1,11 +1,21 @@
-import { ProductList } from "@/modules/products/components/ProductList/ProductList";
-import { useProducts } from "@/modules/products/hooks/useProducts";
-import Alert from "@mui/material/Alert";
-import CircularProgress from "@mui/material/CircularProgress";
-import { useEffect, useRef } from "react";
+import { Alert, CircularProgress, Container, Stack, Typography } from "@mui/material"
+import { useEffect, useState } from "react"
 
+import { CategoryFilter } from "@/modules/products/components/CategoryFilter/CategoryFilter"
+import { ProductList } from "@/modules/products/components/ProductList/ProductList"
+import { useCategories } from "@/modules/products/hooks/useCategories"
+import { useProducts } from "@/modules/products/hooks/useProducts"
 
 export const ProductsPage = () => {
+   const [category, setCategory] = useState<string | null>(null)
+   const [sentinelNode, setSentinelNode] = useState<HTMLDivElement | null>(null)
+
+   const {
+      data: categories,
+      isPending: isCategoriesPending,
+      error: categoriesError,
+   } = useCategories()
+
    const {
       data,
       isPending,
@@ -13,52 +23,81 @@ export const ProductsPage = () => {
       fetchNextPage,
       hasNextPage,
       isFetchingNextPage,
-   } = useProducts()
-   const sentinelRef = useRef<HTMLDivElement | null>(null)
+   } = useProducts(category)
 
    useEffect(() => {
+      if (!sentinelNode) {
+         return
+      }
+
       const observer = new IntersectionObserver(
          (entries) => {
             const [entry] = entries
 
-            if (entry.isIntersecting && hasNextPage) {
+            if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
                fetchNextPage()
             }
          },
       )
 
-      const sentinel = sentinelRef.current
-
-      if (sentinel) {
-         observer.observe(sentinel)
-      }
+      observer.observe(sentinelNode)
 
       return () => {
          observer.disconnect()
       }
-   }, [fetchNextPage, hasNextPage])
+   }, [sentinelNode, fetchNextPage, hasNextPage, isFetchingNextPage])
 
-   if (error) {
-      return <Alert severity="error">{error.message}</Alert>
-   }
+   const products = data?.pages.flatMap((page) => page.products) ?? []
 
-   if (isPending) {
-      return <CircularProgress />
-   }
-
-   const products = data.pages.flatMap(
-      (page) => page.products
-   )
-
-   if (!products.length) {
-      return <div>Список товаров пуст</div>
-   }
+   const emptyMessage = category
+      ? "В этой категории пока нет товаров"
+      : "Список товаров пуст"
 
    return (
-      <>
-         <ProductList products={products} sentinelRef={sentinelRef}/> 
-      
-         {isFetchingNextPage && <CircularProgress />}
-      </>
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+         <Stack spacing={3}>
+            <Typography variant="h4" component="h1">
+               Каталог
+            </Typography>
+
+            <Stack
+               direction={{ xs: "column", sm: "row" }}
+               spacing={2}
+               sx={{ alignItems: { sm: "center" } }}
+            >
+               <CategoryFilter
+                  categories={categories ?? []}
+                  value={category}
+                  onChange={setCategory}
+                  isLoading={isCategoriesPending}
+               />
+
+               {categoriesError && (
+                  <Alert severity="warning">
+                     Не удалось загрузить категории
+                  </Alert>
+               )}
+            </Stack>
+
+            {error ? (
+               <Alert severity="error">{error.message}</Alert>
+            ) : isPending ? (
+               <CircularProgress />
+            ) : products.length ? (
+               <>
+                  <ProductList
+                     products={products}
+                     sentinelRef={setSentinelNode}
+                  />
+
+                  {isFetchingNextPage && <CircularProgress />}
+               </>
+            ) : (
+               <Typography color="text.secondary">
+                  {emptyMessage}
+               </Typography>
+            )}
+         </Stack>
+      </Container>
    )
 }

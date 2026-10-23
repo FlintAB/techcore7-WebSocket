@@ -1,11 +1,11 @@
 import Grid from "@mui/material/Grid";
 import { ProductCard } from "@/modules/products/components/ProductCard/ProductCard";
 import type { Product } from "@/modules/products/types/products.types";
-import type React from "react";
+import type { Ref } from "react";
 
 type ProductListProps = {
    products: Product[],
-   sentinelRef: React.RefObject<HTMLDivElement | null>
+   sentinelRef: Ref<HTMLDivElement>
 }
 
 export const ProductList = ({ products, sentinelRef }: ProductListProps) => (
