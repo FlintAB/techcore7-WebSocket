@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
-import { useCartStore } from "../../store/cartStore";
-import { CartItem } from "../CartItem/CartItem";
+import { useCartStore } from "@/modules/cart/store/cartStore";
+import { CartItem } from "@/modules/cart/components/CartItem/CartItem";
 
 export const CartList = () => {
    const items = useCartStore((state) => state.items)

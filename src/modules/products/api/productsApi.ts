@@ -1,4 +1,4 @@
-import type { Product, ProductsResponse } from "../types/products.types";
+import type { Product, ProductsResponse } from "@/modules/products/types/products.types";
 
 export async function getProducts(limit: number, skip: number): Promise<ProductsResponse> {
    const response = await fetch(

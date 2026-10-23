@@ -5,7 +5,7 @@ import {
    Stack,
    Typography,
 } from "@mui/material";
-import type { LoginResponse } from "../../../auth/types/auth.types";
+import type { LoginResponse } from "@/modules/auth/types/auth.types";
 
 type ProfileCardProps = {
    user: LoginResponse

@@ -1,4 +1,4 @@
-import type { LoginRequest, LoginResponse } from "../types/auth.types";
+import type { LoginRequest, LoginResponse } from "@/modules/auth/types/auth.types";
 
 export async function login(credentials: LoginRequest): Promise<LoginResponse> {
    const response = await fetch('https://dummyjson.com/auth/login', {

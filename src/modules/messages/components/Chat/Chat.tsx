@@ -1,8 +1,8 @@
 import { Alert, CircularProgress, Stack, Typography } from "@mui/material";
 
-import { useWebSocket } from "../../hooks/useWebSocket";
-import { MessageInput } from "../MessageInput/MessageInput";
-import { MessageList } from "../MessageList/MessageList";
+import { useWebSocket } from "@/modules/messages/hooks/useWebSocket";
+import { MessageInput } from "@/modules/messages/components/MessageInput/MessageInput";
+import { MessageList } from "@/modules/messages/components/MessageList/MessageList";
 
 export const Chat = () => {
    const {

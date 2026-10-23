@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import type { Message } from "../../types/messages.types";
+import type { Message } from "@/modules/messages/types/messages.types";
 
 type MessageListProps = {
    messages: Message[]

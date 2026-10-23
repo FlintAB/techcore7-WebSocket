@@ -1,9 +1,9 @@
+import { ProductList } from "@/modules/products/components/ProductList/ProductList";
+import { useProducts } from "@/modules/products/hooks/useProducts";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
-
-import { ProductList } from "../../modules/products/components/ProductList/ProductList";
-import { useProducts } from "../../modules/products/hooks/useProducts";
 import { useEffect, useRef } from "react";
+
 
 export const ProductsPage = () => {
    const {

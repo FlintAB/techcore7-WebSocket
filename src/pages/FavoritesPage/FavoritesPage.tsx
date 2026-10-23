@@ -1,5 +1,5 @@
 import { Container, Typography } from "@mui/material";
-import { FavoritesList } from "../../modules/favorites/components/FavoritesList/FavoritesList";
+import { FavoritesList } from "@/modules/favorites/components/FavoritesList/FavoritesList";
 
 export const FavoritesPage = () => {
    return (

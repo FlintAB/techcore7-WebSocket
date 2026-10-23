@@ -1,4 +1,4 @@
-import type { Product } from "../../products/types/products.types";
+import type { Product } from "@/modules/products/types/products.types";
 
 type Quantity = {
    quantity: number

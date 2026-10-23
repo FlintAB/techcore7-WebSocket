@@ -1,4 +1,4 @@
-import { CartList } from "../../modules/cart/components/CartList/CartList";
+import { CartList } from "@/modules/cart/components/CartList/CartList";
 
 export const CartPage = () => (
    <>

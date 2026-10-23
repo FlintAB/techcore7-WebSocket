@@ -11,11 +11,11 @@ import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-import type { Product } from "../../types/products.types";
+import type { Product } from "@/modules/products/types/products.types";
 import { Link } from "@tanstack/react-router";
 
-import { useFavoritesStore } from "../../../favorites/store/favoritesStore";
-import { useCartStore } from "../../../cart/store/cartStore";
+import { useFavoritesStore } from "@/modules/favorites/store/favoritesStore";
+import { useCartStore } from "@/modules/cart/store/cartStore";
 
 import styles from "./ProductCard.module.css";
 

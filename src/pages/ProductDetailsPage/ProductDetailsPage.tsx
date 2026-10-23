@@ -1,8 +1,9 @@
-import { useParams } from "@tanstack/react-router";
-import { useProduct } from "../../modules/products/hooks/useProduct";
-import { ProductDetails } from "../../modules/products/components/ProductDetails/ProductDetails";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
+
+import { ProductDetails } from "@/modules/products/components/ProductDetails/ProductDetails";
+import { useProduct } from "@/modules/products/hooks/useProduct";
+import { useParams } from "@tanstack/react-router";
 
 export const ProductDetailsPage = () => {
    const productId = useParams({

@@ -1,14 +1,14 @@
 import { createRootRoute, createRouter, createRoute, redirect, Outlet } from "@tanstack/react-router";
-import { LoginPage } from "../../pages/LoginPage/LoginPage";
-import { ProductsPage } from "../../pages/ProductsPage/ProductsPage";
+import { LoginPage } from "@/pages/LoginPage/LoginPage";
+import { ProductsPage } from "@/pages/ProductsPage/ProductsPage";
 import { RootLayout } from "./RootLayout";
-import { useAuthStore } from "../../modules/auth/store/authStore";
-import { CartPage } from "../../pages/CartPage/CartPage";
-import { ProductDetailsPage } from "../../pages/ProductDetailsPage/ProductDetailsPage";
-import { ProfilePage } from "../../pages/ProfilePage/ProfilePage";
-import { FavoritesPage } from "../../pages/FavoritesPage/FavoritesPage";
-import { MessagesPage } from "../../pages/MessagesPage/MessagesPage";
-import { NotFoundPage } from "../../pages/NotFoundPage/NotFoundPage";
+import { useAuthStore } from "@/modules/auth/store/authStore";
+import { CartPage } from "@/pages/CartPage/CartPage";
+import { ProductDetailsPage } from "@/pages/ProductDetailsPage/ProductDetailsPage";
+import { ProfilePage } from "@/pages/ProfilePage/ProfilePage";
+import { FavoritesPage } from "@/pages/FavoritesPage/FavoritesPage";
+import { MessagesPage } from "@/pages/MessagesPage/MessagesPage";
+import { NotFoundPage } from "@/pages/NotFoundPage/NotFoundPage";
 
 const rootRoute = createRootRoute({
    component: () => <RootLayout />,

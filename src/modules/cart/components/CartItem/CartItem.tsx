@@ -8,8 +8,8 @@ import {
    Stack,
    Typography,
 } from "@mui/material";
-import { useCartStore } from "../../store/cartStore";
-import type { CartItemData } from "../../types/cart.types";
+import { useCartStore } from "@/modules/cart/store/cartStore";
+import type { CartItemData } from "@/modules/cart/types/cart.types";
 
 type CartItemProps = {
    product: CartItemData

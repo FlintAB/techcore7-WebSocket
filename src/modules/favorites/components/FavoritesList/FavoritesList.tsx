@@ -8,7 +8,7 @@ import {
    Typography,
 } from "@mui/material";
 import { Link } from "@tanstack/react-router";
-import { useFavoritesStore } from "../../store/favoritesStore";
+import { useFavoritesStore } from "@/modules/favorites/store/favoritesStore";
 
 export const FavoritesList = () => {
    const items = useFavoritesStore((state) => state.items);

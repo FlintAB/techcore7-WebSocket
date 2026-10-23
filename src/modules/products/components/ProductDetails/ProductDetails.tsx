@@ -12,8 +12,8 @@ import {
    Typography,
 } from "@mui/material";
 
-import type { Product } from "../../types/products.types";
-import { useCartStore } from "../../../cart/store/cartStore";
+import type { Product } from "@/modules/products/types/products.types";
+import { useCartStore } from "@/modules/cart/store/cartStore";
 
 type ProductDetailsProps = {
    product: Product;

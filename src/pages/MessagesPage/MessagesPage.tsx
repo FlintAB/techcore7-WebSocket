@@ -1,5 +1,5 @@
+import { Chat } from "@/modules/messages/components/Chat/Chat";
 import { Container } from "@mui/material";
-import { Chat } from "../../modules/messages/components/Chat/Chat";
 
 export const MessagesPage = () => {
    return (

@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
-import { ProductCard } from "../ProductCard/ProductCard";
-import type { Product } from "../../types/products.types";
+import { ProductCard } from "@/modules/products/components/ProductCard/ProductCard";
+import type { Product } from "@/modules/products/types/products.types";
 import type React from "react";
 
 type ProductListProps = {

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { FavoriteItem } from "../types/favorites.types";
+import type { FavoriteItem } from "@/modules/favorites/types/favorites.types";
 
 type FavoritesState = {
    items: FavoriteItem[],

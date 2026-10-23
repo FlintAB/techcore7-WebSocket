@@ -8,9 +8,9 @@ import {
    Typography,
 } from "@mui/material";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useAuthStore } from "../../../modules/auth/store/authStore";
-import { useCartStore } from "../../../modules/cart/store/cartStore";
-import { useFavoritesStore } from "../../../modules/favorites/store/favoritesStore";
+import { useAuthStore } from "@/modules/auth/store/authStore";
+import { useCartStore } from "@/modules/cart/store/cartStore";
+import { useFavoritesStore } from "@/modules/favorites/store/favoritesStore";
 
 import styles from "./Header.module.css";
 

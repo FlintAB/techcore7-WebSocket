@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query"
-import { getProducts } from "../api/productsApi"
+import { getProducts } from "@/modules/products/api/productsApi"
 
 const PRODUCTS_LIMIT = 20
 

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import type { Message } from "../types/messages.types";
+import { useEffect, useRef, useState } from "react";  
+import type { Message } from "@/modules/messages/types/messages.types";
 
 export const useWebSocket = () => {
    const [messages, setMessages] = useState<Message[]>([])

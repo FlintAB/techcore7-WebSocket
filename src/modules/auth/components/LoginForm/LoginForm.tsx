@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { useLogin } from "../../hooks/useLogin";
+import { useLogin } from "@/modules/auth/hooks/useLogin";
 import { Alert, Box, Button, TextField } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 
