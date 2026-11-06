@@ -1,3 +1,4 @@
+
 import {
   Injectable,
   UnauthorizedException,
@@ -5,6 +6,11 @@ import {
 
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import {
+  createHash,
+  randomUUID,
+  timingSafeEqual,
+} from 'node:crypto';
 import * as bcrypt from 'bcrypt';
 
 import { LoginDto } from './dto/login.dto';
@@ -19,21 +25,18 @@ export class AuthService {
   ) {}
 
   async login(dto: LoginDto) {
-    // 1. Ищем пользователя
     const user = await this.prisma.user.findUnique({
       where: {
         username: dto.username,
       },
     });
 
-    // 2. Проверяем существование пользователя
     if (!user) {
       throw new UnauthorizedException(
         'Invalid username or password',
       );
     }
 
-    // 3. Сравниваем пароль с хешем из БД
     const isPasswordValid = await bcrypt.compare(
       dto.password,
       user.passwordHash,
@@ -45,13 +48,67 @@ export class AuthService {
       );
     }
 
-    // 4. Формируем payload для токенов
+    return this.generateTokens(user.id, user.username);
+  }
+
+  async refresh(refreshToken: string) {
+    let payload: { sub: string };
+
+    try {
+      payload = await this.jwtService.verifyAsync<{
+        sub: string;
+      }>(refreshToken, {
+        secret: this.configService.getOrThrow<string>(
+          'REFRESH_TOKEN_SECRET',
+        ),
+      });
+    } catch {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    if (typeof payload.sub !== 'string') {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: payload.sub,
+      },
+    });
+
+    if (!user || !user.refreshTokenHash) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    const incomingHash = this.hashToken(refreshToken);
+
+    const storedHashBuffer = Buffer.from(
+      user.refreshTokenHash,
+      'hex',
+    );
+
+    const incomingHashBuffer = Buffer.from(
+      incomingHash,
+      'hex',
+    );
+
+    const isTokenValid =
+      storedHashBuffer.length === incomingHashBuffer.length &&
+      timingSafeEqual(storedHashBuffer, incomingHashBuffer);
+
+    if (!isTokenValid) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    return this.generateTokens(user.id, user.username);
+  }
+
+  private async generateTokens(userId: string, username: string) {
     const payload = {
-      sub: user.id,
-      username: user.username,
+      sub: userId,
+      username,
     };
 
-    // 5. Создаём access token
     const accessToken = await this.jwtService.signAsync(
       payload,
       {
@@ -62,9 +119,13 @@ export class AuthService {
       },
     );
 
-    // 6. Создаём refresh token
+    const jti = randomUUID();
+
     const refreshToken = await this.jwtService.signAsync(
-      payload,
+      {
+        ...payload,
+        jti,
+      },
       {
         secret: this.configService.getOrThrow<string>(
           'REFRESH_TOKEN_SECRET',
@@ -73,27 +134,28 @@ export class AuthService {
       },
     );
 
-    // 7. Сохраняем хеш refresh token в БД
-    const refreshTokenHash = await bcrypt.hash(
-      refreshToken,
-      12,
-    );
+    const refreshTokenHash = this.hashToken(refreshToken);
 
     await this.prisma.user.update({
       where: {
-        id: user.id,
+        id: userId,
       },
       data: {
         refreshTokenHash,
       },
     });
 
-    // 8. Возвращаем результат
     return {
-      id: user.id,
-      username: user.username,
+      id: userId,
+      username,
       accessToken,
       refreshToken,
     };
+  }
+
+  private hashToken(token: string): string {
+    return createHash('sha256')
+      .update(token)
+      .digest('hex');
   }
 }
