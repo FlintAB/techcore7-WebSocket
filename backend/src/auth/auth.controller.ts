@@ -43,4 +43,11 @@ export class AuthController {
          username: request.user.username,
       };
    }
+
+   @Post('logout')
+   @HttpCode(200)
+   @UseGuards(AccessTokenGuard)
+   logout(@Req() request: AuthenticatedRequest) {
+      return this.authService.logout(request.user.sub);
+   }
 }
