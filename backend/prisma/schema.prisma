@@ -24,6 +24,7 @@ model User {
    updatedAt        DateTime @updatedAt
    refreshTokenHash String?
    cart Cart?
+   favorites Favorite[]
 }
 
 model Category {
@@ -46,6 +47,7 @@ model Product {
    brand       String   @default("")
    thumbnail   String
    cartItems CartItem[]
+   favorites Favorite[]
 }
 
 model Cart {
@@ -66,4 +68,15 @@ model CartItem {
    product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
    @@id([cartId, productId])
+}
+
+model Favorite {
+   userId    String   @db.Uuid
+   productId Int
+   createdAt DateTime @default(now())
+
+   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+   @@id([userId, productId])
 }
